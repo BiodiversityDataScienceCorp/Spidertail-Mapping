@@ -161,7 +161,7 @@ horsetailData
 ```
 
 
-Group Member 2:
+Group Member 2: Roland
 
 Check for and filter out any occurrences in which individualCount==0
 * write code below
@@ -170,6 +170,8 @@ Check for and filter out any occurrences in which individualCount==0
 * Tell your groupmates to pull in Slack
 
 ```{r}
+
+# This is a practice comment lol
 
 ```
 
