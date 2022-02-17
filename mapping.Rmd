@@ -5,7 +5,6 @@ output: pdf_document
 
 ## Mapping Species Occurrences
 
-Dharma Hoy 
 Spidertail
 Mapping Species Occurrences 
 Feburary 15th 
@@ -32,6 +31,7 @@ library("rgdal")
 library("dismo")
 library("sf")
 
+library("tidyverse")
 
 ```
 
@@ -82,9 +82,9 @@ Group member 1:
 * Tell your groupmates to pull in Slack
 
 ```{r}
-
-
-
+# I had to run install.packages("sf") in the counsole
+horsetail <- occ(query='Asclepias subverticillata', from='gbif', limit=1000)
+horsetail
 ```
 
 
@@ -141,10 +141,23 @@ Check for and filter out any data in which occurrenceStatus=="Absent"
 * Tell your groupmates to pull in Slack
 
 ```{r}
+# first view the data 
+horsetailData = horsetail$gbif$data$Asclepias_subverticillata
+horsetailData
+```
+```{r}
+# next remove absent. note code is from previous assignment
 
+# check if there are any
+unique(horsetailData$occurrenceStatus)
 
+# there are, so remove them
+absent <- subset(x=horsetailData, occurrenceStatus !="PRESENT")
+absent
 
-
+# note anti_join is in the tidyverse, it was not originally called
+horsetailData <- anti_join(horsetailData, absent)
+horsetailData
 ```
 
 
@@ -158,9 +171,6 @@ Check for and filter out any occurrences in which individualCount==0
 
 ```{r}
 
-
-
-
 ```
 
 
@@ -171,8 +181,6 @@ Check for obvious errors in lat/long. Remove those points if necessary.
 * Commit
 * Push
 * Tell your groupmates to pull in Slack
-
-
 
 Group Member 4 (or 1):
 
@@ -263,12 +271,56 @@ dev.off()
 
 Select a group member to create a map of your milkweed occurrence data. Follow the example above: first determine your min/max lat/lon, and then generate the map code. Save this as a jpg file. Then commit, and push to Github (and have your group members pull).
 
+First read the csv
 ```{r}
+horsetailFromCSV = read_csv("horsetail.csv")
+horsetailFromCSV
+```
 
 
 
+```{r}
+# find the boundaries for latitude and longitude
+max.lat <- ceiling(max(horsetailFromCSV$latitude))
 
+min.lat <- floor(min(horsetailFromCSV$latitude))
 
+# run same calculations for longitude
+
+max.lon <- ceiling(max(horsetailFromCSV$longitude))
+min.lon <- floor(min(horsetailFromCSV$longitude))
+
+```
+
+```{r}
+# now make the actual map
+jpeg(file="or.jpg")
+
+# loads spatial polygons
+data(wrld_simpl)
+
+# Plot the base map
+plot(wrld_simpl, 
+     xlim = c(min.lon, max.lon), # sets upper/lower x
+     ylim = c(min.lat, max.lat), # sets upper/lower y
+     axes = TRUE, 
+     col = "grey95",
+     main="Horsetail Milkweek Occurances",  # a title
+     sub="an informative caption" # a caption
+     )
+
+# Add the points for individual observation
+points(x = horsetailFromCSV$longitude, 
+       y = horsetailFromCSV$latitude, 
+       col = "lightpink3", 
+       pch = 20, 
+       cex = 0.75)
+# And draw a little box around the graph
+box()
+
+# indicates I'm done with plotting and saving to jpg
+dev.off()
+```
 ```
 
 
