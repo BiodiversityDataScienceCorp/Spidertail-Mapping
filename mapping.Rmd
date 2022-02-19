@@ -75,7 +75,7 @@ BEWARE: Things can get really messy if you and your groupmates are simultaneousl
 
 Practice:
 
-Group member 1:
+Group member 1: Dharma
 * write code in the code chunk below to query milkweed species from GBIF
 * Commit
 * Push
@@ -88,7 +88,7 @@ horsetail
 ```
 
 
-Group member 2:
+Group member 2: Roland
 * write code in the code chunk below to query milkweed species from GBIF
 * Commit
 * Push
@@ -96,7 +96,11 @@ Group member 2:
 
 ```{r}
 
+# Like Dharma, I also had to run install.packages("sf") in the console
+# I also pulled the Arizona specific data and adjusted the limit accordingly
 
+horsetailAZ <- occ(query='Asclepias subverticillata', from='gbif', gbifopts = list(stateProvince="Arizona"), limit=1000)
+horsetailAZ
 
 ```
 
@@ -134,7 +138,7 @@ Group member 4 (if applicable):
 Just like in the last exercise, it's important to look for errors in the data.
 Check here for a refresher: https://github.com/BiodiversityDataScienceCorp/more-querying-gbif-data/blob/main/more-querying-gbif.Rmd
 
-Group Member 1:
+Group Member 1: Dharma
 
 Check for and filter out any data in which occurrenceStatus=="Absent"
 * write code below
@@ -172,8 +176,24 @@ Check for and filter out any occurrences in which individualCount==0
 * Tell your groupmates to pull in Slack
 
 ```{r}
+# Code taken from more-querying-gbif-data assignment
 
-# This is a practice comment lol
+# First - check if there are any
+unique(horsetailData$individualCount)
+
+# There aren't any I found where individualCount==0, but here is the code that would theoretically do this
+
+zeroHorsetail<-subset(horsetailData, individualCount==0)
+
+horsetailData<-anti_join(horsetailData, zeroHorsetail)
+
+# And here is code that removes rows where individualCount==NA
+
+NAHorsetail<-subset(horsetailData, is.na(individualCount))
+
+horsetailData<-anti_join(horsetailData, NAHorsetail)
+
+horsetailData
 
 ```
 
