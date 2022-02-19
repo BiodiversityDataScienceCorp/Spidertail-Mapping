@@ -101,7 +101,7 @@ Group member 2:
 ```
 
 
-Group member 3:
+Group member 3: Sammy
 * write code in the code chunk below to query milkweed species from GBIF
 * Commit
 * Push
@@ -109,7 +109,9 @@ Group member 3:
 
 ```{r}
 
-
+# I copied code from above to double check it worked, but edited to return all values
+horsetail <- occ(query='Asclepias subverticillata', from='gbif', limit=3000)
+horsetail
 
 ```
 
@@ -176,13 +178,17 @@ Check for and filter out any occurrences in which individualCount==0
 ```
 
 
-Group Member 3:
+Group Member 3: Sammy
 
 Check for obvious errors in lat/long. Remove those points if necessary.
 * write code below
 * Commit
 * Push
 * Tell your groupmates to pull in Slack
+```{r}
+# I am planning on removing NA values, but am having trouble with the code, I am going to take a break and revisit
+
+```
 
 Group Member 4 (or 1):
 
