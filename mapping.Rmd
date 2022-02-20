@@ -208,7 +208,20 @@ Check for obvious errors in lat/long. Remove those points if necessary.
 * Push
 * Tell your groupmates to pull in Slack
 ```{r}
+# removing rows where latitude==NA (where latitude==NA, longitude==NA so I only used latitude)
+NALat<-subset(horsetailData, is.na(latitude))
+horsetailData<-anti_join(horsetailData, NALat)
+horsetailData
 
+# plot data to see if anything seemed off
+wm <- borders("world", colour="gray50", fill="gray50")
+ggplot()+ coord_fixed()+ wm +
+  geom_point(data = horsetailData, aes(x = longitude, y = latitude),
+             colour = "darkred", size = 1.0)+
+  theme_bw()
+# Nothing seemed out of reasonable range, although not all data lied within Arizona
+
+# by looking through the coordinate data after removing NA's, I did not see any other erroneous data points with missing or out of place '-' signs, or values that seemed absurdly small or large
 ```
 
 Group Member 4 (or 1): Christopher Olson
