@@ -119,15 +119,17 @@ horsetail
 
 ```
 
-Group member 4 (if applicable):
+Group member 4: Christopher Olson
 * write code in the code chunk below to query milkweed species from GBIF
 * Commit
 * Push
 * Tell your groupmates to pull in Slack
 
 ```{r}
-
-
+Tophershorsetaildata <-occ(query='Asclepias subverticillata', from='gbif', limit=3000)
+Tophershorsetaildata
+#removing an object I made called 'horsetaildata' because it was confusingly similar to 'horsetailData' which we're actually using
+rm(horsetaildata)
 
 ```
 
@@ -210,7 +212,7 @@ Check for obvious errors in lat/long. Remove those points if necessary.
 
 ```
 
-Group Member 4 (or 1):
+Group Member 4 (or 1): Christopher Olson
 
 Reduce data columns, and save to a CSV file
 * write code below
@@ -218,8 +220,18 @@ Reduce data columns, and save to a CSV file
 * Push
 * Tell your groupmates to pull in Slack
 NOTE: Depending upon the size of your .csv file, you may not want to commit and push it. Your groupmates can always re-run the code to generate their own local copy.
+```{r}
+# Reduce Data Columns
 
+#here I list the columns I think we should keep, and create a reduced data set
+reducedhorsetailData<-select(horsetailData, c(name, longitude, latitude, stateProvince, year, month, day, eventDate, individualCount))
 
+reducedhorsetailData
+
+#now I make a csv file. Sammy hasn't yet cleaned out the NA lat/long rows, so I won't do it yet. Here's the code we'll use
+
+#write_csv(reducedhorsetailData, "reducedhorsetail.csv")
+```
 ### Mapping
 
 We did a little bit of mapping in the last assignment, when we were checking for erroneous points. Now let's try to make a more fine-tuned map of species occurrences, with the goal of creating ans image you could use in your final report.
