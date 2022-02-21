@@ -242,7 +242,7 @@ reducedhorsetailData
 
 #now I make a csv file. Sammy hasn't yet cleaned out the NA lat/long rows, so I won't do it yet. Here's the code we'll use
 
-#write_csv(reducedhorsetailData, "reducedhorsetail.csv")
+write_csv(reducedhorsetailData, "reducedhorsetail.csv")
 ```
 ### Mapping
 
