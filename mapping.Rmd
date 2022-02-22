@@ -325,7 +325,7 @@ Select a group member to create a map of your milkweed occurrence data. Follow t
 
 First read the csv
 ```{r}
-horsetailFromCSV = read_csv("horsetail.csv")
+horsetailFromCSV = read_csv("reducedhorsetail.csv")
 horsetailFromCSV
 ```
 
@@ -346,7 +346,7 @@ min.lon <- floor(min(horsetailFromCSV$longitude))
 
 ```{r}
 # now make the actual map
-jpeg(file="or.jpg")
+jpeg(file="map.jpg")
 
 # loads spatial polygons
 data(wrld_simpl)
