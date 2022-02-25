@@ -6,7 +6,7 @@
 ### Species Description:
 ### Habitat Description:
 ### Larval Host Information:
-### Data Sources:
+### Data Sources: GBIF, iNaturalist
 ### Species Occurrence Map:
-### Link to Github Repository:
-### References:
+### Link to Github Repository: 
+### References:(species information sources
