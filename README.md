@@ -8,6 +8,7 @@
 ### Larval Host Information:
 ### Data Sources: GBIF, iNaturalist
 ### Species Occurrence Map:
+! [Map of Occurences of Horsetail Milkweed across the Southwestern United States and Mexico] (insert link to image in github here)
 ### Link to Github Repository: 
 ### References:
 ### 
