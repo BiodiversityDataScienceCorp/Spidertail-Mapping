@@ -12,6 +12,7 @@ library("rgdal")
 library("dismo")
 library("sf")
 library("tidyverse")
+library("rinat")
 
 ##### Code for the creation of our species occurence map #####
 
@@ -31,15 +32,18 @@ absent
 horsetailData <- anti_join(horsetailData, absent)
 horsetailData
 
-# Filtering out of entries where individualCount==0 or NA
+# Filtering out entries where individualCount==0 or NA
 unique(horsetailData$individualCount)
 zeroHorsetail<-subset(horsetailData, individualCount==0)
 horsetailData<-anti_join(horsetailData, zeroHorsetail)
-NAHorsetail<-subset(horsetailData, is.na(individualCount))
-horsetailData<-anti_join(horsetailData, NAHorsetail)
-horsetailData
 
-# Filtering out of entries where latitude/longitude are NA
+# there is not a column labeled individualCount showing up here so this next line of code
+# is dropping rows for no reason which is why the number of points on the 
+# map originally decreased when inaturalist was added
+# NAHorsetail<-subset(horsetailData, is.na(individualCount))
+# horsetailData<-anti_join(horsetailData, NAHorsetail)
+
+# Filtering out entries where latitude/longitude are NA
 # (where latitude==NA, longitude==NA so I only used latitude)
 NALat<-subset(horsetailData, is.na(latitude))
 horsetailData<-anti_join(horsetailData, NALat)
@@ -52,14 +56,47 @@ ggplot()+ coord_fixed()+ wm +
   theme_bw()
 # Nothing seemed out of reasonable range, though not all data lied within AZ
 
+### THIS SECTION IS THE SAME AS ABOVE BUT WITH INATURALIST DATA
+
+# pulling
+horsetailNat <- get_inat_obs(taxon_name = 'Asclepias subverticillata')
+
+# Filtering out of entries where observed_on==NA
+unique(horsetailNat$observed_on)
+# when this code is ran it can be seen that there are no NA or blank values
+# so nothing needs to be removed
+
+# the next step in the process is
+# Filtering out of entries where individualCount==0 or NA
+# this data doesn't have a column for that so skip
+
+# Filtering out of entries where latitude/longitude are NA
+# (where latitude==NA, longitude==NA so I only used latitude)
+NALat<-subset(horsetailNat, is.na(latitude))
+horsetailNat<-anti_join(horsetailNat, NALat)
+horsetailNat
+# plot data to see if anything seemed off
+wm <- borders("world", colour="gray50", fill="gray50")
+ggplot()+ coord_fixed()+ wm +
+  geom_point(data = horsetailNat, aes(x = longitude, y = latitude),
+             colour = "darkred", size = 1.0)+
+  theme_bw()
+
 ### THIS SECTION IS WHERE DATA IS PREPARED TO MAP AND MAPPED
 
 # Reduction of data columns and saving as CSV
 #here I list the columns I think we should keep, and create a reduced data set
-reducedhorsetailData<-select(horsetailData, c(name, longitude, latitude, stateProvince, year, month, day, eventDate, individualCount))
+reducedhorsetailData<-select(horsetailData, c(longitude, latitude))
 reducedhorsetailData
-#now I make a csv file. Sammy hasn't yet cleaned out the NA lat/long rows, so I won't do it yet. Here's the code we'll use
-write_csv(reducedhorsetailData, "reducedhorsetail.csv")
+
+# reduce naturalist data as well
+reducedhorsetailNat<-select(horsetailNat, c(longitude, latitude))
+
+# combine df
+df3 <- rbind(reducedhorsetailData, reducedhorsetailNat)
+
+#now I make a csv file. 
+write_csv(df3, "reducedhorsetail.csv")
 
 # Data read from CSV and lat/long set
 horsetailFromCSV = read_csv("reducedhorsetail.csv")
@@ -83,7 +120,7 @@ plot(wrld_simpl,
      axes = TRUE, 
      col = "grey95",
      main="Horsetail Milkweek Occurances",  # a title
-     sub="an informative caption" # a caption
+     sub="Where are the Horsetail Milkweed" # a caption
 )
 # Add the points for individual observation
 points(x = horsetailFromCSV$longitude, 
