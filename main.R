@@ -83,7 +83,7 @@ df2 <- select(horsetailDataI, "location")
 
 # split into lat and long
 df2 <- df2 %>%
-  separate(location, c("longitude", "latitude"), ",")
+  separate(location, c("latitude", "longitude"), ",")
 
 # make numerical
 df2$longitude = as.numeric(df2$longitude)
@@ -107,9 +107,7 @@ jpeg(file="map.jpg")
 # loads spatial polygons
 data(wrld_simpl)
 # Plot the base map
-plot.new() # this was added because there was an error without it
 plot(wrld_simpl, 
-     add = TRUE,
      xlim = c(min.lon, max.lon), # sets upper/lower x
      ylim = c(min.lat, max.lat), # sets upper/lower y
      axes = TRUE, 
