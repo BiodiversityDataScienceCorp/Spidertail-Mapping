@@ -12,109 +12,104 @@ library("rgdal")
 library("dismo")
 library("sf")
 library("tidyverse")
-library("rinat")
+library("dplyr")
+library("tidyr")
 
 ##### Code for the creation of our species occurence map #####
 
 ### THIS SECTION IS WHERE DATA IS PULLED AND CLEANED
+# note, the inat data does not have the same column names as gbif, and
+# cannot be cleaned using the same steps
 
 # First pull and view of the data
-horsetail <- occ(query='Asclepias subverticillata', from='gbif', limit=1000)
+horsetail <- occ(query='Asclepias subverticillata', from=c('gbif','inat'), limit=5000)
 horsetail
-horsetailData = horsetail$gbif$data$Asclepias_subverticillata
-horsetailData
+horsetailDataG = horsetail$gbif$data$Asclepias_subverticillata
+horsetailDataI = horsetail$inat$data$Asclepias_subverticillata
 
 # Filtering out of entries where occurrenceStatus=="Absent"
-unique(horsetailData$occurrenceStatus)
-absent <- subset(x=horsetailData, occurrenceStatus !="PRESENT")
+unique(horsetailDataG$occurrenceStatus)
+absent <- subset(x=horsetailDataG, occurrenceStatus !="PRESENT")
 absent
+
 # note anti_join is in the tidyverse, it was not originally called
-horsetailData <- anti_join(horsetailData, absent)
-horsetailData
+horsetailDataG <- anti_join(horsetailDataG, absent)
+horsetailDataG
 
 # Filtering out entries where individualCount==0 or NA
-unique(horsetailData$individualCount)
-zeroHorsetail<-subset(horsetailData, individualCount==0)
-horsetailData<-anti_join(horsetailData, zeroHorsetail)
+unique(horsetailDataG$individualCount)
+zeroHorsetail<-subset(horsetailDataG, individualCount==0)
+horsetailDataG<-anti_join(horsetailDataG, zeroHorsetail)
 
-# there is not a column labeled individualCount showing up here so this next line of code
-# is dropping rows for no reason which is why the number of points on the 
-# map originally decreased when inaturalist was added
-# NAHorsetail<-subset(horsetailData, is.na(individualCount))
-# horsetailData<-anti_join(horsetailData, NAHorsetail)
+NAHorsetail<-subset(horsetailDataG, is.na(individualCount))
+horsetailDataG<-anti_join(horsetailDataG, NAHorsetail)
 
 # Filtering out entries where latitude/longitude are NA
 # (where latitude==NA, longitude==NA so I only used latitude)
-NALat<-subset(horsetailData, is.na(latitude))
-horsetailData<-anti_join(horsetailData, NALat)
-horsetailData
+NALat<-subset(horsetailDataG, is.na(latitude))
+horsetailDataG<-anti_join(horsetailDataG, NALat)
+horsetailDataG
+
+NALat<-subset(horsetailDataI, is.na(location))
+horsetailDataI<-anti_join(horsetailDataI, NALat)
+horsetailDataI
+
 # plot data to see if anything seemed off
 wm <- borders("world", colour="gray50", fill="gray50")
 ggplot()+ coord_fixed()+ wm +
-  geom_point(data = horsetailData, aes(x = longitude, y = latitude),
+  geom_point(data = horsetailDataG, aes(x = longitude, y = latitude),
              colour = "darkred", size = 1.0)+
   theme_bw()
 # Nothing seemed out of reasonable range, though not all data lied within AZ
 
-### THIS SECTION IS THE SAME AS ABOVE BUT WITH INATURALIST DATA
-
-# pulling
-horsetailNat <- get_inat_obs(taxon_name = 'Asclepias subverticillata')
-
-# Filtering out of entries where observed_on==NA
-unique(horsetailNat$observed_on)
-# when this code is ran it can be seen that there are no NA or blank values
-# so nothing needs to be removed
-
-# the next step in the process is
-# Filtering out of entries where individualCount==0 or NA
-# this data doesn't have a column for that so skip
-
-# Filtering out of entries where latitude/longitude are NA
-# (where latitude==NA, longitude==NA so I only used latitude)
-NALat<-subset(horsetailNat, is.na(latitude))
-horsetailNat<-anti_join(horsetailNat, NALat)
-horsetailNat
-# plot data to see if anything seemed off
-wm <- borders("world", colour="gray50", fill="gray50")
-ggplot()+ coord_fixed()+ wm +
-  geom_point(data = horsetailNat, aes(x = longitude, y = latitude),
-             colour = "darkred", size = 1.0)+
-  theme_bw()
 
 ### THIS SECTION IS WHERE DATA IS PREPARED TO MAP AND MAPPED
 
 # Reduction of data columns and saving as CSV
 #here I list the columns I think we should keep, and create a reduced data set
-reducedhorsetailData<-select(horsetailData, c(longitude, latitude))
-reducedhorsetailData
+reducedhorsetailData<-select(horsetailDataG, c(name, longitude, latitude, stateProvince, year, month, day, eventDate, individualCount))
 
-# reduce naturalist data as well
-reducedhorsetailNat<-select(horsetailNat, c(longitude, latitude))
+#now make a csv file. 
+write_csv(reducedhorsetailData, "reducedhorsetail.csv")
 
-# combine df
-df3 <- rbind(reducedhorsetailData, reducedhorsetailNat)
-
-#now I make a csv file. 
-write_csv(df3, "reducedhorsetail.csv")
-
-# Data read from CSV and lat/long set
+# Data read from CSV
 horsetailFromCSV = read_csv("reducedhorsetail.csv")
 horsetailFromCSV
+
+# combine the gbif and inat data into one data frame with just lat and 
+# long to plot
+df1 <- select(horsetailDataG,c("longitude", "latitude"))
+df2 <- select(horsetailDataI, "location")
+
+# split into lat and long
+df2 <- df2 %>%
+  separate(location, c("longitude", "latitude"), ",")
+
+# make numerical
+df2$longitude = as.numeric(df2$longitude)
+df2$latitude = as.numeric(df2$latitude)
+
+# now combine the data frames
+horsetailData <- rbind(df1, df2)
+
+# now that we have the inat data, we will use that instead of the csv data
+
 # find the boundaries for latitude and longitude
-max.lat <- ceiling(max(horsetailFromCSV$latitude))
-min.lat <- floor(min(horsetailFromCSV$latitude))
+max.lat <- ceiling(max(horsetailData$latitude))
+min.lat <- floor(min(horsetailData$latitude))
+
 # run same calculations for longitude
-max.lon <- ceiling(max(horsetailFromCSV$longitude))
-min.lon <- floor(min(horsetailFromCSV$longitude))
+max.lon <- ceiling(max(horsetailData$longitude))
+min.lon <- floor(min(horsetailData$longitude))
 
 # Creation of the actual map
-# now make the actual map
 jpeg(file="map.jpg")
 # loads spatial polygons
 data(wrld_simpl)
 # Plot the base map
+plot.new() # this was added because there was an error without it
 plot(wrld_simpl, 
+     add = TRUE,
      xlim = c(min.lon, max.lon), # sets upper/lower x
      ylim = c(min.lat, max.lat), # sets upper/lower y
      axes = TRUE, 
@@ -123,8 +118,8 @@ plot(wrld_simpl,
      sub="Where are the Horsetail Milkweed" # a caption
 )
 # Add the points for individual observation
-points(x = horsetailFromCSV$longitude, 
-       y = horsetailFromCSV$latitude, 
+points(x = horsetailData$longitude, 
+       y = horsetailData$latitude, 
        col = "lightpink3", 
        pch = 20, 
        cex = 0.75)
