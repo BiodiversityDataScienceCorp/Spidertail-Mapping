@@ -7,7 +7,8 @@
 ### Habitat Description: Found in "sandy or rocky plains and desert flats and slopes; common along roadsides" (wildflower.org) and "disturbed areas, ditches, and streams" (xerces.org)
 ### Larval Host Information: Horsetail milkweed is "is a larval food plant for both [Queen and Monarch butterflies]. It is also visited by wasps, such as the tarantula hawk" (desertmuseum.org)
 ### Data Sources: GBIF, iNaturalist
-### Species Occurrence Map: ![Map of Occurences of Horsetail Milkweed across the Southwestern United States and Mexico] (https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/map.jpg)
+### Species Occurrence Map: 
+![Map of Occurences of Horsetail Milkweed across the Southwestern United States and Mexico](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/map.jpg)
 ### Link to Github Repository: 
 ### References:
 ### 
