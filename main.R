@@ -125,3 +125,5 @@ points(x = horsetailData$longitude,
 box()
 # indicates I'm done with plotting and saving to jpg
 dev.off()
+
+## THIS SECTION IS WHERE OUR SPECIES DISTRIBUTION MODEL IS CREATED
