@@ -83,7 +83,7 @@ Group member 1: Dharma
 
 ```{r}
 # I had to run install.packages("sf") in the counsole
-horsetail <- occ(query='Asclepias subverticillata', from='gbif', limit=1000)
+horsetail <- occ(query='Asclepias subverticillata', from=c('gbif','inat'), limit=1000)
 horsetail
 ```
 
