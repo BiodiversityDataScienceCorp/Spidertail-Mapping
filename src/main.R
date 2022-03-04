@@ -161,4 +161,4 @@ write.csv(horsetailData, "data/Horsetail.csv")
 
 # 6. Use the source() command to run the file you created in step 2 ############
 
-source("src/horsetail-sdm-single.R")
+source(file = "src/horsetail-sdm-single.R")
