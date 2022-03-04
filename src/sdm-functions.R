@@ -253,8 +253,8 @@ SDMBioclim <- function(data, padding = 0.1) {
   colnames(background.points) <- c("lon", "lat")
   
   # Data for observation sites (presence and background)
-  presence.values <- extract(x = bioclim.data, y = data)
-  absence.values <- extract(x = bioclim.data, y = background.points)
+  presence.values <- raster::extract(x = bioclim.data, y = data)
+  absence.values <- raster::extract(x = bioclim.data, y = background.points)
   
   ########################################
   # ANALYSIS
