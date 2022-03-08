@@ -94,6 +94,13 @@ plot(wrld_simpl, xlim = c(xmin, xmax), ylim = c(ymin, ymax), axes = TRUE, col = 
 # Add the model rasters
 plot(sdm.raster, legend = FALSE, add = TRUE)
 
+# add occurrence data
+points(x = prepared.data$lon, 
+       y = prepared.data$lat, 
+       col = "red", 
+       pch = 20, 
+       cex = 0.75)
+
 # Redraw the borders of the base map
 plot(wrld_simpl, xlim = c(xmin, xmax), ylim = c(ymin, ymax), add = TRUE, border = "gray10", col = NA)
 
