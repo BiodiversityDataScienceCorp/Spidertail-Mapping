@@ -12,3 +12,32 @@
 ### Link to Github Repository: 
 ### References:
 ### 
+
+### Milkweed Species Name: 
+
+### Species Taxonomy: 
+
+
+### Data 
+### Description of Data Source(s) for Occurence and Distribution Modeling: (maybe a download DOI too?)
+### Description of Data Cleaning Process
+### Link to Data GitHub Repository (DOI Zenodo?)
+
+### Species Occurrence Map
+### Map of Occurrence (presence only) Observations
+### Link to Occurrence Map GitHub Repository (DOI Zenodo?)
+
+### Species Distribution Modeling
+### Description of SDMs
+### Methods for SDMs
+### Map of SDM
+### Link to SDM GitHub Repository (DOI Zenodo?)
+
+### Species Distribution Forecast Estimation
+### Description of SDF
+### Climate data used for SDF
+### Methods used for SDF
+### Map of SDF
+### Link to SDF GitHub Repository (DOI Zenodo?)
+
+### References:
