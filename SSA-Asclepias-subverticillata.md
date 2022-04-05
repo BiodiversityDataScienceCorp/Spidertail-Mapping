@@ -17,16 +17,18 @@ Species: *Asclepias subverticillata*
 
 ### Horsetail Milkweed Life History and Ecology
  Horsetail milkweed grows in "feathery clumps or patches and bear[s] white, star-like flowers in round umbels and 3-5 very narrow leaves in whorls at nodes" (wildflower.org); the Missouri Department of Conservation also describes the plant as an "herbaceous perennial, usually unbranched but occasionally with a few branches toward the tip... Fruits smooth, narrow pods less than 4 inches long, erect, bearing seeds that have a tuft of white hairs" (mdc.mo.gov)
- Found in "sandy or rocky plains and desert flats and slopes; common along roadsides" (wildflower.org) and "disturbed areas, ditches, and streams" (xerces.org)
- Horsetail milkweed is "is a larval food plant for both [Queen and Monarch butterflies]. It is also visited by wasps, such as the tarantula hawk" (desertmuseum.org)
+ 
+ Found in "sandy or rocky plains and desert flats and slopes; common along roadsides" (wildflower.org) and "disturbed areas, ditches, and streams" (xerces.org) *expand on dryness, gardening zones and horticultural information-primary literature*
+ 
+ Horsetail milkweed is "is a larval food plant for both [Queen and Monarch butterflies]. It is also visited by wasps, such as the tarantula hawk" (desertmuseum.org) *competitive exclusion*
 
 ## Project Archive: insert ZENODO DOI
-## Project Repository: insert Github Link
+## Project Repository: [Spidertail-Mapping](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping)
 
 ## Data 
-### Description of Data Source(s) for Occurence and Distribution Modeling: 
+### Data Sources for Occurence and Distribution Modeling 
  Our data was pulled from GBIF and iNaturalist, two sources that allow for data to be crowdsourced and accessed by anyone interested in using it for analysis. Github is a database that allows for researchers fromm around the world to upload their data for use in other projects, while iNaturalist contains mostly citizen sighting recordings.
-### Description of Data Cleaning Process
+### Data Cleaning Process
 In our data cleaning process we removed any data from the data set for which the occurrence status equaled absent, data where the occurrence number equaled 0, and data where the location data (latitude/longitude) is not provided. We combined the data from two sources (after?) cleaning.
 
 ## Species Occurrence Map 
