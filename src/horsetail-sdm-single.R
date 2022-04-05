@@ -11,7 +11,7 @@ rm(list = ls())
 # Load dependancies
 
 # Things to set:
-infile <- "data/Horsetail.csv"
+infile <- "data/horsetail.csv"
 outprefix <- "Horsetail"
 outpath <- "output/"
 
