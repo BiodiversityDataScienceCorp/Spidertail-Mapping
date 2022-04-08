@@ -34,8 +34,8 @@ The following additional R packages are required (these will be installed by run
 
 ## Running the code
 Instructions to clone this repository, run the code, and replicate the output. 
- 1. Clone this Spidertail-Mapping Github repository
- 2. Pull to a new project in Rstudio or Rstudio.cloud
+ 1. Copy the URL to this Spidertail-Mapping Github repository by clicking on the green "Code" button above
+ 2. Clone the repository by opening a "New Project from Git Repository" in rstudio or rstudio.cloud and pasting the URL
  3. Run scripts in the src folder in the following order:
     1) setup.R
     2) occuranceMap.R (this creates the species occurence map)
