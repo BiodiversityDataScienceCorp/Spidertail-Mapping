@@ -10,11 +10,20 @@
 
 ################################################################################
 # Install dependencies
-required <- c("raster", "sp", "dismo", "maptools", "spocc", "tidyverse", "maps")
+required <- c("raster", "sp", "dismo", "maptools", "spocc", "rgdal", "sf", "tidyverse", "maps")
 install.packages(required)
+
+# load packages:
+library("raster")
+library("sp")
+library("dismo")
+library("maptools")
 library("spocc")
+library("rgdal")
+library("sf")
 library("tidyverse")
 library("maps")
+
 # Make sure packages all installed
 successful <- required %in% rownames(installed.packages())
 unsuccessful <- required[!successful]
@@ -38,19 +47,52 @@ if (!require(package = "raster")) {
   stop("Setup requires the raster package, which does not appear to be available.\n")
 }
 
-# Download bioclim data
+# load current climate data
+if(file.exists("data")){
+  dir.create("data/wc2-5")
+}else{
+  dir.create("data")
+  dir.create("data/wc2-5")
+}
+
+dir.create("data/cmip5/")
+dir.create("data/cmip5/2_5m")
+url<-"https://climatedata.watzekdi.net/bio_2-5m_bil.zip"
+destfile<-"data/cmip5/2_5m/bio_2-5m_bil.zip"
+# Apply download.file function in R
 message("Downloading climate data from WorldClim")
-bioclim.data <- getData(name = "worldclim",
-                        var = "bio",
-                        res = 2.5, # Could try for better resolution, 0.5, but would then need to provide lat & long...
-                        path = "data/")
+download.file(url, destfile)
+message("Extracting forecast climate data (this may take a moment)")
+unzip(zipfile = "data/cmip5/2_5m/bio_2-5m_bil.zip", exdir="data/cmip5/2_5m/")
+file.remove("data/wc2-5/bio_2-5m_bil.zip")
+
+# load future climate data
+
+future<-c("forecast1.zip","forecast2.zip","forecast3.zip","forecast4.zip")
+
+#loops through the future vector, downloads and unzips each file
+for (file in future){
+  urlFuture<-paste("https://climatedata.watzekdi.net/",file, sep = "")
+  destfileFuture<-file
+  download.file(urlFuture, destfileFuture)
+  message("Extracting future climate data (this may take a moment)")
+  unzip(zipfile = file, exdir=".")
+  file.remove(file)
+}
+
+# Download bioclim data
+# message("Downloading climate data from WorldClim")
+# bioclim.data <- getData(name = "worldclim",
+#                         var = "bio",
+#                        res = 2.5, # Could try for better resolution, 0.5, but would then need to provide lat & long...
+#                        path = "data/")
 
 # Unzip forecast data
-message("Extracting forecast climate data (this may take a moment)")
-forecast.archives <- list.files(path = "data/cmip5/2_5m", 
-                                pattern = "*.zip$",
-                                full.names = TRUE)
-forecast.data <- lapply(X = forecast.archives, FUN = unzip)
+# message("Extracting forecast climate data (this may take a moment)")
+# forecast.archives <- list.files(path = "data/cmip5/2_5m", 
+#                                 pattern = "*.zip$",
+#                                 full.names = TRUE)
+# forecast.data <- lapply(X = forecast.archives, FUN = unzip)
 # unzip(zipfile = "data/cmip5/2_5m/forecast-data.zip")
 
 # NOPE archive is too big (> 100 MB) for GitHub. But there might be a solution
@@ -90,3 +132,4 @@ forecast.data <- lapply(X = forecast.archives, FUN = unzip)
 rm(required, successful, unsuccessful, bioclim.data, forecast.archives, forecast.data)
 
 message("Setup complete.")
+
