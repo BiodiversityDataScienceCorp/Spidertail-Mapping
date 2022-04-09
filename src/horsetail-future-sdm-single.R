@@ -1,3 +1,6 @@
+# This script assists in creating the future species distribution 
+# model. The code was written by Jeff Oliver 
+
 # Script to run forecast species distribution model for a single species
 # Jeff Oliver
 # jcoliver@email.arizona.edu
