@@ -1,3 +1,7 @@
+# This code was created by Jeffrey C. Oliver
+# we use it to set up the environment for the 
+# second and third maps
+
 # Data preparation function for running sdm on iNaturalist data
 # Jeffrey C. Oliver
 # jcoliver@email.arizona.edu
