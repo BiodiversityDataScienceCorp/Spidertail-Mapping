@@ -34,7 +34,7 @@ In our data cleaning process we removed any data from the data set for which the
 The map below shows current species occurrence data in the North American southwest, as well as a prediction of species distribution based on current climate data. In other words, all regions in black are areas with environmental conditions that are suitable for horsetail milkweeds. The red dots show locations where milkweeds have actually been found
 ### Methods 
 This map was created with the help of Jeff Oliver and Jeremy McWilliams. We followed along with their demonstrations of how to create a species distribution model, and then created our own. 
-![Map of Predicted Current Horsetail Distirbution](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/output/horsetail-single-current-sdm.jpg)
+![Map of Predicted Current Horsetail Distirbution](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/horsetail-single-current-sdm.jpg)
 
 ## Species Distribution Forecast Estimation
  The map below shows current species occurrence data in the North American southwest, and predicts future species distribution based on climate forecast models. These climate models predict that the regions in black are areas that will have environmental conditions suitable for horsetail milkweeds in (What year?). 
