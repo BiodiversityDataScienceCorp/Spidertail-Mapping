@@ -69,10 +69,10 @@ ggplot()+ coord_fixed()+ wm +
 reducedhorsetailData<-select(horsetailDataG, c(name, longitude, latitude, stateProvince, year, month, day, eventDate, individualCount))
 
 #now make a csv file. 
-write_csv(reducedhorsetailData, "reducedhorsetail.csv")
+write_csv(reducedhorsetailData, "data/reducedhorsetail.csv")
 
 # Data read from CSV
-horsetailFromCSV = read_csv("reducedhorsetail.csv")
+horsetailFromCSV = read_csv("data/reducedhorsetail.csv")
 horsetailFromCSV
 
 # combine the gbif and inat data into one data frame 
@@ -105,7 +105,7 @@ max.lon <- ceiling(max(horsetailData$longitude))
 min.lon <- floor(min(horsetailData$longitude))
 
 # Creation of the actual map
-jpeg(file="map.jpg")
+jpeg(file="output/OccuranceMap.jpg")
 # loads spatial polygons
 data(wrld_simpl)
 # Plot the base map
