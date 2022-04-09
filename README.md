@@ -27,7 +27,7 @@ The following additional R packages are required (these will be installed by run
   + **horsetail-future-sdm-single.R**: contains the code that creates a future species distribution model map using projected climate data; to execute, run src/futureSpeciesDistributionModel.R
   + **horsetail-sdm-single.R**: contains the code that creates a current species distribution model map; to execute, run src/speciesDistributionModel.R
   + **occuranceMap.R**: contains the code that will create an occurence map using GBIF and iNaturalist data; run this script itself
-  + **project.Rproj**: (NEEDS DESCRIPTION)
+  + **project.Rproj**: This code was created in a R project, the details of this are shown here.
   + **sdm-functions.R**: contains code that produces the species distribution models themselves; both horsetail-sdm-single.R and horsetail-future-sdm-single.R call on this file, no need to run on its own
   + **setup.R**: contains code that installs necessary packages and and downloads climate data. Run this script first
   + **speciesDistributionModel.R**: contains the code that runs horsetail-sdm-single.R and produces the current species distribution model map
