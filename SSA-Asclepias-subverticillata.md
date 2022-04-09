@@ -34,7 +34,7 @@ In our data cleaning process we removed any data from the data set for which the
 The map below shows current species occurrence data in the North American southwest, as well as a prediction of species distribution based on current climate data. In other words, all regions in black are areas with environmental conditions that are suitable for horsetail milkweeds. The red dots show locations where milkweeds have actually been found
 ### Methods 
 This map was created with the help of Jeff Oliver and Jeremy McWilliams. We followed along with their demonstrations of how to create a species distribution model, and then created our own. 
-![Map of Predicted Current Horsetail Distirbution](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/horsetail-single-current-sdm.jpg)
+![Map of Predicted Current Horsetail Distribution](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/horsetail-single-current-sdm.jpg)
 
 ## Species Distribution Forecast Estimation
  The map below shows current species occurrence data in the North American southwest, and predicts future species distribution based on climate forecast models. These climate models predict that the regions in black are areas that will have environmental conditions suitable for horsetail milkweeds in (What year?). 
@@ -42,7 +42,7 @@ This map was created with the help of Jeff Oliver and Jeremy McWilliams. We foll
  The climate data used was tied to the WorldClim package used for creating our model. This r package uses spatially interpolated gridded data from 1950 to 2000, along with paleo climate data. It also incorporates monthly open-source weather station data. The data provided is primarily monthly total precipitation, monthly mean temperature, monthly mean maximum and minimum temperatures, and 19 other derived bioclimatic variables used for ecological niche modeling. 
 ### Methods 
 This map was created with the help of Jeff Oliver and Jeremy McWilliams. We followed along with their demonstrations of how to create a species distribution model, and then created our own.
-![Map of Predicted Horsetail Distirbution Under and Average Future Climate Model](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/output/horsetail-single-future-sdm.jpg)
+![Map of Predicted Horsetail Distirbution Under and Average Future Climate Model](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/horsetail-single-future-sdm.jpg)
 
 ## Summary of Findings
  The current and future species distribution models (SDMs) above paint a picture of how horsetail milkweed habitats will change over time. In general, they predict that habitat will shrink and move north. In the current SDM, occurrences (red dots) and suitable habitat (black regions) almost entirely overlap. In the future SDM, many occurrences no longer overlap with predicted suitable habitat. Therefore according to our model, at least some populations will not survive changing climate conditions in their current locations. 
