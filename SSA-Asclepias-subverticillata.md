@@ -28,7 +28,7 @@ Species: *Asclepias subverticillata*
 In our data cleaning process we removed any data from the data set for which the occurrence status equaled absent, data where the occurrence number equaled 0, and data where the location data (latitude/longitude) is not provided. We combined the data from two sources after cleaning.
 
 ## Species Occurrence Map 
-![Map of Occurences of Horsetail Milkweed across the Southwestern United States and Mexico](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/output/OccuranceMap.jpg)
+![Map of Occurences of Horsetail Milkweed across the Southwestern United States and Mexico](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/OccuranceMap.jpg)
 
 ## Species Distribution Modeling
 The map below shows current species occurrence data in the North American southwest, as well as a prediction of species distribution based on current climate data. In other words, all regions in black are areas with environmental conditions that are suitable for horsetail milkweeds. The red dots show locations where milkweeds have actually been found
