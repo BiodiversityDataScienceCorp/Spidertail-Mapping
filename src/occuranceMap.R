@@ -1,8 +1,7 @@
-# "Comment the bejesus out of this file" - Jeremy, 2/22/22
+# Spidertail Occurrence map
+# This code creates the occurrence map of the horsetail milkweed
 
-# This document is for migrating code over and commenting/sectioning through
-
-### THIS SECTION IS FOR LOADING NECESSARY PACKAGES
+# Load needed packages
 
 library("spocc")
 library("sp")
@@ -15,11 +14,11 @@ library("tidyverse")
 library("dplyr")
 library("tidyr")
 
-##### Code for the creation of our species occurence map #####
 
-### THIS SECTION IS WHERE DATA IS PULLED AND CLEANED
-# note, the inat data does not have the same column names as gbif, and
-# cannot be cleaned using the same steps
+### Pull and clean data
+
+# note, the inaturalist data does not have the same column 
+# names as gbif, and cannot be cleaned using the same steps
 
 # First pull and view of the data
 horsetail <- occ(query='Asclepias subverticillata', from=c('gbif','inat'), limit=5000)
@@ -32,7 +31,7 @@ unique(horsetailDataG$occurrenceStatus)
 absent <- subset(x=horsetailDataG, occurrenceStatus !="PRESENT")
 absent
 
-# note anti_join is in the tidyverse, it was not originally called
+# edit the dataframe to not have absent data
 horsetailDataG <- anti_join(horsetailDataG, absent)
 horsetailDataG
 
@@ -63,10 +62,10 @@ ggplot()+ coord_fixed()+ wm +
 # Nothing seemed out of reasonable range, though not all data lied within AZ
 
 
-### THIS SECTION IS WHERE DATA IS PREPARED TO MAP AND MAPPED
+### Prepare the data to be mapped and  map the data
 
 # Reduction of data columns and saving as CSV
-#here I list the columns I think we should keep, and create a reduced data set
+# create a reduced data set of the most important columns
 reducedhorsetailData<-select(horsetailDataG, c(name, longitude, latitude, stateProvince, year, month, day, eventDate, individualCount))
 
 #now make a csv file. 
@@ -76,23 +75,26 @@ write_csv(reducedhorsetailData, "reducedhorsetail.csv")
 horsetailFromCSV = read_csv("reducedhorsetail.csv")
 horsetailFromCSV
 
-# combine the gbif and inat data into one data frame with just lat and 
-# long to plot
-df1 <- select(horsetailDataG,c("longitude", "latitude"))
-df2 <- select(horsetailDataI, "location")
+# combine the gbif and inat data into one data frame 
+# the columns shared are latitude and longitude 
+# so the data sets will be combined on those columns
+# and then plotted
+tempGbif <- select(horsetailDataG,c("longitude", "latitude"))
+tempInat <- select(horsetailDataI, "location")
 
-# split into lat and long
-df2 <- df2 %>%
+# the inat data puts lat and long into one column so
+# split into separate lat and long columns
+tempInat <- tempInat %>%
   separate(location, c("latitude", "longitude"), ",")
 
 # make numerical
-df2$longitude = as.numeric(df2$longitude)
-df2$latitude = as.numeric(df2$latitude)
+tempInat$longitude = as.numeric(tempInat$longitude)
+tempInat$latitude = as.numeric(tempInat$latitude)
 
 # now combine the data frames
-horsetailData <- rbind(df1, df2)
+horsetailData <- rbind(tempGbif, tempInat)
 
-# now that we have the inat data, we will use that instead of the csv data
+# This section creates the map
 
 # find the boundaries for latitude and longitude
 max.lat <- ceiling(max(horsetailData$latitude))
@@ -125,40 +127,3 @@ points(x = horsetailData$longitude,
 box()
 # indicates I'm done with plotting and saving to jpg
 dev.off()
-
-## THIS SECTION IS WHERE OUR SPECIES DISTRIBUTION MODEL IS CREATED
-
-# Your Turn!!!
-# Thank you Jeff Oliver for your code (https://github.com/jcoliver/biodiversity-sdm-lesson)
-
-########################### 1. Run the setup code below ####################################
-# This installs libraries, and downloads climate data from bioclim (https://www.worldclim.org/data/bioclim.html)
-
-source(file = "src/setup.R")
-
-############### 2. In the "src" directory, copy the contents of "run-sdm-single.R" ##############
-# into a new file (still in 'src') called <species>-sdm-single.R (Rename <species> to your milkweed)
-
-# 3. In this new file, edit lines 14 & 15, changing MY_SPECIES to your milkwood species.
-
-# 4. Below, write your spocc/gbif query, 
-# and then use the "$" notation to create a variable targeting the data set. 
-
-horsetail<-occ(query='Asclepias subverticillata', from="gbif", gbifopts = list(year="2020"))
-horsetailData<-horsetail$gbif$data$Asclepias_subverticillata
-
-################ 5. Save to CSV #####################
-
-# first, ensure all data is character data
-#df <- apply(df,2,as.character)
-
-horsetailData <- apply(horsetailData,2,as.character)
-
-# use write.csv to write the data frame to 'data' directory
-# make sure the file name matches what you indicated in step 3 on line 14
-
-write.csv(horsetailData, "data/Horsetail.csv")
-
-# 6. Use the source() command to run the file you created in step 2 ############
-
-source(file = "src/horsetail-sdm-single.R")
