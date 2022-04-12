@@ -16,7 +16,7 @@ Genus: Asclepias
 Species: *Asclepias subverticillata*
 
 ### Horsetail Milkweed Life History and Ecology
- Found in "sandy or rocky plains and desert flats and slopes; common along roadsides" (wildflower.org) and "disturbed areas, ditches, and streams" (xerces.org). *A. subverticillata* does well in dry, well draingin areas, and are resistant to draught once established. Horsetail milkweed is "is a larval food plant for both [Queen and Monarch butterflies]. It is also visited by wasps, such as the tarantula hawk" (desertmuseum.org) *competitive exclusion*
+ Found in "sandy or rocky plains and desert flats and slopes; common along roadsides" (wildflower.org) and "disturbed areas, ditches, and streams" (xerces.org). *A. subverticillata* does well in dry, well draining areas, and are resistant to draught once established. Horsetail milkweed is "is a larval food plant for both [Queen and Monarch butterflies]. It is also visited by wasps, such as the tarantula hawk" (desertmuseum.org) 
 
 ## Project Archive: insert ZENODO DOI
 ## Project Repository: [Spidertail-Mapping](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping)
