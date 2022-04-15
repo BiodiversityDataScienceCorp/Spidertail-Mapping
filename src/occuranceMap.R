@@ -94,6 +94,12 @@ tempInat$latitude = as.numeric(tempInat$latitude)
 # now combine the data frames
 horsetailData <- rbind(tempGbif, tempInat)
 
+# remove duplicate rows
+horsetailData <- distinct(horsetailData)
+
+# create a csv of the combined data
+write_csv(horsetailData, "data/combinedHorsetailData.csv")
+
 # This section creates the map
 
 # find the boundaries for latitude and longitude
