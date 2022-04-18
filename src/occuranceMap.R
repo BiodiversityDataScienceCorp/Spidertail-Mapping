@@ -120,7 +120,7 @@ plot(wrld_simpl,
      ylim = c(min.lat, max.lat), # sets upper/lower y
      axes = TRUE, 
      col = "grey95",
-     main="Horsetail Milkweek Occurances",  # a title
+     main="Horsetail Milkweed Occurances",  # a title
      sub="Where are the Horsetail Milkweed" # a caption
 )
 # Add the points for individual observation
