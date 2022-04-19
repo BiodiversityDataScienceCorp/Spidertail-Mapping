@@ -47,9 +47,11 @@ This map was created with the help of Jeff Oliver and Jeremy McWilliams. We foll
 ![Map of Predicted Horsetail Distirbution Under and Average Future Climate Model](https://github.com/BiodiversityDataScienceCorp/Spidertail-Mapping/blob/main/output/horsetail-single-future-sdm.jpg)
 
 ## Summary of Findings
- The current and future species distribution models (SDMs) above paint a picture of how horsetail milkweed habitats will change over time. In general, they predict that habitat will shrink and move north. In the current SDM, occurrences (red dots) and suitable habitat (black regions) almost entirely overlap. In the future SDM, many occurrences no longer overlap with predicted suitable habitat. Therefore according to our model, at least some populations will not survive changing climate conditions in their current locations. 
+ The current and future species distribution models (SDMs) above paint a picture of how horsetail milkweed habitats will change over time. In general, they predict that habitat will shrink and move north and west. In the current SDM, occurrences (red dots) and suitable habitat (black regions) almost entirely overlap. In the future SDM, many occurrences no longer overlap with predicted suitable habitat. Therefore according to our model, at least some populations will not survive changing climate conditions in their current locations. Similarly, our model predicts that areas that were once inhospitable to horesetails milkweed will be become potential habitat in the future. 
 
-In general, the implications for Monarch butterflies and their conservation are straightforward. Given that Monarch larvae rely on milkweed for habitat, Monarch distributions and population levels will change as milkweeed populations change. Horsetail milkweed does well in dry climates and drought prone areas, and so it important to consider as a tool as climates generally become drier.
+In Arizona specifically, our model predicts that horsetail milkweed habitat will shrink somewhat in the NW, grow somewhat in the NE, and shrink dramatically in the SE. 
+
+In general, the implications for Monarch butterflies and their conservation are straightforward. Given that Monarch larvae rely on milkweed for habitat, Monarch distributions and population levels will change as milkweeed populations change. Horsetail milkweed does well in dry climates and drought prone areas, and so it important to consider as a tool as climates generally become drier. 
 
 ## References:
 Integrated Taxonomic Information System. [itis.gov](https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=30308#null)
